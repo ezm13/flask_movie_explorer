@@ -1,0 +1,166 @@
+<style>
+  body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 🧩 Ajuste clave para centrar ignorando el navbar */
+  main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 70px); /* resta el alto del navbar */
+  }
+
+  .login-container {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 420px;
+    padding: 2.5rem;
+    animation: fadeIn 0.9s ease-in-out;
+  }
+
+  .app-logo {
+    text-align: center;
+    margin-bottom: 1.8rem;
+  }
+
+  .app-logo h1 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
+    display: inline-block;
+    position: relative;
+    animation: glowPulse 2s infinite alternate;
+  }
+
+  .app-logo span {
+    color: #e50914;
+  }
+
+  @keyframes glowPulse {
+    0% { text-shadow: 0 0 8px rgba(229, 9, 20, 0.5); }
+    100% { text-shadow: 0 0 20px rgba(229, 9, 20, 1); }
+  }
+
+  .login-header {
+    text-align: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .login-header p {
+    color: #cccccc;
+    font-size: 0.95rem;
+  }
+
+  .form-label {
+    color: #ddd;
+    font-weight: 500;
+  }
+
+  .form-control {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 12px;
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus {
+    background-color: rgba(255, 255, 255, 0.25);
+    outline: none;
+    box-shadow: 0 0 0 2px #e50914;
+  }
+
+  .form-check-label {
+    color: #aaa;
+    font-size: 0.9rem;
+  }
+
+  .btn-login {
+    background-color: #e50914;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    width: 100%;
+    padding: 10px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+  }
+
+  .btn-login:hover {
+    background-color: #b0060f;
+    transform: translateY(-2px);
+  }
+
+  .links {
+    text-align: center;
+    margin-top: 1.2rem;
+  }
+
+  .links a {
+    color: #00bcd4;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+  }
+
+  .links a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<main>
+  <div class="login-container">
+    <div class="app-logo">
+      <h1>🎬 <span>Flask</span> Movie Explorer</h1>
+    </div>
+
+    <div class="login-header">
+      <p>Inicia sesión para acceder a tus películas favoritas</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('login') }}">
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="remember" name="remember">
+        <label class="form-check-label" for="remember">Recuérdame</label>
+      </div>
+
+      <button type="submit" class="btn btn-login">Iniciar sesión</button>
+    </form>
+
+    <div class="links">
+      <p class="mt-3">¿No tienes una cuenta? <a href="{{ url_for('register') }}">Regístrate</a></p>
+      <p><a href="{{ url_for('forgot_password') }}">¿Olvidaste tu contraseña?</a></p>
+    </div>
+  </div>
+</main>

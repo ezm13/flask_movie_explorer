@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <h2>Resultados de búsqueda para "{{ query }}"</h2>
+  <div class="row mt-4">
+    {% for movie in movies %}
+      <div class="col-md-3 mb-4">
+        <div class="card h-100">
+          {% if movie.poster_path %}
+            <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" class="card-img-top" alt="{{ movie.title }}">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ movie.title }}</h5>
+            <p class="card-text">{{ movie.overview[:120] }}...</p>
+           <form action="{{ url_for('add_favorite') }}" method="POST">
+  <input type="hidden" name="title" value="{{ movie.title }}">
+  <input type="hidden" name="poster_url" value="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}">
+  <input type="hidden" name="overview" value="{{ movie.overview }}">
+  <button type="submit" class="btn btn-primary btn-sm mt-2">⭐ Agregar a favoritos</button>
+</form>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

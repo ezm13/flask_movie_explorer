@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center mt-5">
+  <div class="welcome-container">
+    <h1 class="welcome-text">
+      🎬 Bienvenido a Flask Movie Explorer
+    </h1>
+    <p class="welcome-subtext">
+      Tu portal para explorar, guardar y gestionar tus películas favoritas.
+    </p>
+    <a href="{{ url_for('login') }}" class="btn welcome-btn mt-3">Comienza ahora</a>
+  </div>
+</div>
+{% endblock %}

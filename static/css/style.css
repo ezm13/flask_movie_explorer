@@ -1,0 +1,31 @@
+/* 🎬 Corrección de contraste para la página de inicio */
+.welcome-text {
+  color: #111 !important;              /* Texto oscuro legible */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.welcome-subtext {
+  color: #333 !important;
+}
+
+.welcome-btn {
+  background-color: #e50914;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  transition: 0.3s;
+}
+
+.welcome-btn:hover {
+  background-color: #b0060f;
+  transform: scale(1.03);
+}
+
+/* Opcional: agrega un fondo sutil al contenedor */
+.welcome-container {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 15px;
+  padding: 40px;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}

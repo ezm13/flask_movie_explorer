@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-attachment: fixed;
+  }
+
+  .register-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 420px;
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .register-card h2 {
+    font-weight: 600;
+    color: #f8f9fa;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-control {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: none;
+  }
+
+  .form-control:focus {
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .btn-primary {
+    background-color: #e50914;
+    border: none;
+    transition: 0.3s;
+  }
+
+  .btn-primary:hover {
+    background-color: #b0060f;
+    transform: scale(1.03);
+  }
+
+  a {
+    color: #00bcd4;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<div class="register-card">
+  <h2>📝 Crear cuenta</h2>
+  <form method="POST" action="{{ url_for('register') }}">
+    <div class="mb-3">
+      <label for="username" class="form-label">Nombre de usuario</label>
+      <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Correo electrónico</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Contraseña</label>
+      <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100 py-2">Registrarme</button>
+  </form>
+
+  <div class="text-center mt-3">
+    <p class="mb-1">¿Ya tienes una cuenta? <a href="{{ url_for('login') }}">Inicia sesión</a></p>
+  </div>
+</div>
+{% endblock %}

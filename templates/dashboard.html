@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #0e0e0e;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  h2 {
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .movie-card {
+    position: relative;
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    cursor: pointer;
+  }
+
+  .movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 0, 90, 0.4);
+  }
+
+  .movie-poster {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: opacity 0.5s ease;
+  }
+
+  .movie-info {
+    padding: 1rem;
+    position: relative;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.85);
+  }
+
+  .movie-info h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .movie-info p {
+    font-size: 0.85rem;
+    color: #ccc;
+    height: 45px;
+    overflow: hidden;
+  }
+
+  .movie-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: black;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .movie-card:hover .movie-overlay {
+    opacity: 1;
+  }
+
+  .movie-overlay iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  .movie-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ff3860;
+    font-size: 0.85rem;
+  }
+
+  .btn-fav {
+    background: linear-gradient(90deg, #e50914, #b006d9);
+    border: none;
+    color: white;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: 0.3s;
+  }
+
+  .btn-fav:hover {
+    background: linear-gradient(90deg, #b006d9, #e50914);
+  }
+
+  .no-favs {
+    text-align: center;
+    color: #ccc;
+    margin-top: 5rem;
+    font-size: 1.2rem;
+  }
+
+  iframe {
+    border: none;
+  }
+</style>
+
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>🍿 Tus Películas Favoritas</h2>
+    <form class="d-flex" action="{{ url_for('search_movie') }}" method="get">
+      <input type="text" name="query" class="form-control me-2" placeholder="Buscar película..." required>
+      <button class="btn btn-danger">Buscar</button>
+    </form>
+  </div>
+
+  {% if favorites %}
+    <div class="movie-grid">
+      {% for movie in favorites %}
+        <div class="movie-card">
+          {% if movie.poster_url %}
+            <img src="{{ movie.poster_url }}" alt="{{ movie.title }}" class="movie-poster">
+          {% else %}
+            <img src="https://via.placeholder.com/300x450?text=Sin+Imagen" class="movie-poster">
+          {% endif %}
+
+          <div class="movie-overlay">
+            {% if movie.trailer_url %}
+              <iframe
+                src="{{ movie.trailer_url }}?autoplay=1&mute=1&loop=1&controls=0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen>
+              </iframe>
+            {% else %}
+              <h5 class="text-light">🎞️ Sin tráiler disponible</h5>
+            {% endif %}
+          </div>
+
+          <div class="movie-info">
+            <h5>{{ movie.title }}</h5>
+            <div class="movie-meta">
+              <span>⭐ {{ movie.rating or 'N/A' }}</span>
+              <span>{{ movie.release_date or '—' }}</span>
+            </div>
+            <p>{{ movie.overview[:100] }}...</p>
+
+            <form action="{{ url_for('delete_favorite', movie_id=movie.id) }}" method="POST">
+              <button type="submit" class="btn-fav mt-2">🗑️ Quitar de Favoritos</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="no-favs">
+      🌟 Aún no tienes películas favoritas. ¡Agrega una para comenzar!
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}
