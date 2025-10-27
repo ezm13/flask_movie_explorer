@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  body {
+    background-color: #0e0e0e;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  h2 {
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #ff3860;
+  }
+
+  .card {
+    background-color: #1a1a1a;
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 25px rgba(255, 56, 96, 0.3);
+  }
+
+  .btn-danger {
+    background: linear-gradient(90deg, #e50914, #b006d9);
+    border: none;
+  }
+
+  .btn-danger:hover {
+    background: linear-gradient(90deg, #b006d9, #e50914);
+  }
+
+  .btn-outline-light {
+    border: 1px solid #ff3860;
+    color: #ff3860;
+  }
+
+  .btn-outline-light:hover {
+    background-color: #ff3860;
+    color: white;
+  }
+
+  .container {
+    padding-bottom: 3rem;
+  }
+
+  a.btn-secondary {
+    background-color: #444;
+    border: none;
+  }
+
+  a.btn-secondary:hover {
+    background-color: #666;
+  }
+</style>
+
+<div class="container mt-5">
+  <h2 class="text-center mb-5">🎬 Recomendaciones basadas en "{{ movie }}"</h2>
+
+  {% if recommendations %}
+  <div class="row">
+    {% for rec in recommendations %}
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 h-100">
+        {% if rec.poster %}
+        <img src="{{ rec.poster }}" class="card-img-top" alt="{{ rec.title }}">
+        {% else %}
+        <img src="https://via.placeholder.com/300x450?text=Sin+Imagen" class="card-img-top" alt="{{ rec.title }}">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ rec.title }}</h5>
+          <p class="card-text" style="font-size: 0.9rem;">{{ rec.overview[:150] }}...</p>
+
+          <form action="{{ url_for('add_favorite') }}" method="POST">
+            <input type="hidden" name="title" value="{{ rec.title }}">
+            <button type="submit" class="btn btn-danger btn-sm w-100 mb-2">Agregar a Favoritos ❤️</button>
+          </form>
+
+          <a href="https://www.youtube.com/results?search_query={{ rec.title | urlencode }}+trailer"
+             target="_blank" class="btn btn-outline-light btn-sm w-100">
+             Ver tráiler ▶️
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-center text-muted">No se encontraron recomendaciones.</p>
+  {% endif %}
+
+  <div class="text-center mt-5">
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary px-4 py-2">Volver</a>
+  </div>
+</div>
+{% endblock %}

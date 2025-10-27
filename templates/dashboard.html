@@ -129,6 +129,23 @@
     </form>
   </div>
 
+  <!-- 🔍 Recomendaciones con IA -->
+<div class="mt-4 p-4 rounded" style="background-color: #1a1a1a;">
+  <h4 class="text-center mb-3" style="color: #ff3860;">🤖 Recomendaciones Inteligentes</h4>
+  <form action="/recommend" method="POST" class="text-center">
+    <input
+      type="text"
+      name="movie"
+      placeholder="Ejemplo: Inception"
+      class="form-control w-50 mx-auto mb-3"
+      style="background-color:#0e0e0e; color:white; border:1px solid #ff3860;"
+      required
+    />
+    <button type="submit" class="btn btn-danger">Recomendar</button>
+  </form>
+</div>
+
+
   {% if favorites %}
     <div class="movie-grid">
       {% for movie in favorites %}

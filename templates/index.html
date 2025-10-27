@@ -1,14 +1,157 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="text-center mt-5">
-  <div class="welcome-container">
-    <h1 class="welcome-text">
-      🎬 Bienvenido a Flask Movie Explorer
-    </h1>
-    <p class="welcome-subtext">
-      Tu portal para explorar, guardar y gestionar tus películas favoritas.
-    </p>
-    <a href="{{ url_for('login') }}" class="btn welcome-btn mt-3">Comienza ahora</a>
+<style>
+  body {
+    background-color: #000;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Fondo tipo Netflix: video o imagen difuminada */
+  .background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(40%) blur(2px);
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 3rem;
+    padding: 2rem;
+  }
+
+  .welcome-text {
+    max-width: 480px;
+  }
+
+  .welcome-text h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #ff3860;
+    text-shadow: 0 0 15px rgba(255, 56, 96, 0.6);
+  }
+
+  .welcome-text p {
+    font-size: 1.1rem;
+    color: #ddd;
+    line-height: 1.6;
+  }
+
+  .login-card {
+    background-color: rgba(26, 26, 26, 0.9);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 0 25px rgba(255, 56, 96, 0.25);
+    width: 340px;
+    backdrop-filter: blur(8px);
+  }
+
+  .login-card h2 {
+    color: #ff3860;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .form-control {
+    background-color: #0e0e0e;
+    color: white;
+    border: 1px solid #ff3860;
+  }
+
+  .form-control:focus {
+    background-color: #1a1a1a;
+    border-color: #ff3860;
+    box-shadow: none;
+  }
+
+  .btn-login {
+    background: linear-gradient(90deg, #e50914, #b006d9);
+    border: none;
+    color: white;
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 8px;
+    transition: 0.3s;
+  }
+
+  .btn-login:hover {
+    background: linear-gradient(90deg, #b006d9, #e50914);
+  }
+
+  .login-links {
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .login-links a {
+    color: #ff3860;
+    text-decoration: none;
+  }
+
+  .login-links a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<!-- Fondo con video -->
+<video autoplay muted loop class="background-video">
+  <source src="https://cdn.pixabay.com/vimeo/479229809/movie-45338.mp4?width=1280&hash=3e3a7a3e870b2a72f23d73cdb06b4d1384d8c53f" type="video/mp4">
+  Tu navegador no soporta videos en HTML5.
+</video>
+
+<div class="overlay"></div>
+
+<div class="content container">
+  <div class="welcome-text">
+    <h1>🎬 Flask Movie Explorer</h1>
+    <p>Descubre películas recomendadas por IA, guarda tus favoritas y revive tus historias preferidas.</p>
+    <p>Todo en una sola experiencia visual, rápida y personalizada.</p>
+  </div>
+
+  <div class="login-card">
+    <h2>Iniciar sesión</h2>
+    <form action="{{ url_for('login') }}" method="POST">
+      <div class="mb-3">
+        <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
+      </div>
+      <div class="form-check mb-3 text-center">
+        <input type="checkbox" name="remember" class="form-check-input" id="rememberCheck">
+        <label class="form-check-label" for="rememberCheck">Recordarme</label>
+      </div>
+      <button type="submit" class="btn-login">Entrar</button>
+    </form>
+
+    <div class="login-links">
+      <p>¿No tienes cuenta? <a href="{{ url_for('register') }}">Regístrate</a></p>
+      <p><a href="{{ url_for('forgot_password') }}">¿Olvidaste tu contraseña?</a></p>
+    </div>
   </div>
 </div>
 {% endblock %}
