@@ -1,20 +1,12 @@
-# 🧱 Archivos de entorno y configuración sensible
-.env
-.env.*
-instance/
-
-# 🐍 Archivos de Python
+venv/
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
-# 🧩 Entorno virtual
-venv/
-
-# 🗃️ Base de datos SQLite
 *.db
-database.db
-
-# 🍎 Archivos del sistema macOS
+*.sqlite3
+*.pt
+*.npy
+*.log
+.env
 .DS_Store
