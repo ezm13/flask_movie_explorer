@@ -125,7 +125,3 @@ Desarrollador en formación — Ingeniería en Sistemas
 Este proyecto es de uso educativo y libre bajo la licencia MIT.
 
 
----
-
-¿Quieres que le agregue también una **sección con capturas (screenshots)** de tu dashboard, login y sistema de recomendaciones (en formato Markdown listo para GitHub)?  
-Así tu repositorio se ve más profesional y atractivo.
